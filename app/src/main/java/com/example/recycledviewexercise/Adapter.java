@@ -21,6 +21,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private List<ModelClass> modelClassList;
     Context mContext;
+    ModelClass modelClass;
 
     public Adapter(List<ModelClass> modelClassList) {
         this.modelClassList = modelClassList;
@@ -28,22 +29,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) { //tworzymy szablon dla wyswietlanych widoków
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_layout, viewGroup, false);
+
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) { //powiązujemy View Holder
         final int resource = modelClassList.get(position).getImageResource();
         final String title = modelClassList.get(position).getTitle();
         final String body = modelClassList.get(position).getBody();
         Log.d(TAG, "onBindViewHolder: called.");
 
-//        Glide.with(mContext)
-//                .asBitmap()
-//                .load(mImageUrls.get(position))
-//                .into(holder.image);
+
         viewHolder.setData(resource, title, body);
 
 
@@ -51,7 +50,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return modelClassList.size();
+        return modelClassList.size(); //zwracamy wielkość listy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
