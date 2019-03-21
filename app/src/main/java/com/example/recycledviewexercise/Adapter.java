@@ -1,72 +1,56 @@
 package com.example.recycledviewexercise;
 
-
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.example.recycledviewexercise.databinding.ItemLayoutBinding;
 
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
+
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    private List<ModelClass> modelClassList;
+    private List<ModelClass> modelList;
 
-
-     Adapter(List<ModelClass> modelClassList) {
-        this.modelClassList = modelClassList;
+    Adapter(List<ModelClass> modelList) {
+        this.modelList = modelList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) { //tworzymy szablon dla wyswietlanych widoków
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_layout, viewGroup, false);
-
-        return new ViewHolder(view);
+        ItemLayoutBinding itemLayoutBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(viewGroup.getContext()), R.layout.item_layout, viewGroup, false);
+        return new ViewHolder(itemLayoutBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) { //powiązujemy View Holder
-        final int resource = modelClassList.get(position).getImageResource();
-        final String title = modelClassList.get(position).getTitle();
-        final String body = modelClassList.get(position).getBody();
+        ModelClass listModels = modelList.get(position);
+        viewHolder.itemLayoutBinding.setImage(listModels);
+
         Log.d(TAG, "onBindViewHolder: called.");
-
-
-        viewHolder.setData(resource, title, body);
-
-
     }
 
     @Override
     public int getItemCount() {
-        return modelClassList.size(); //zwracamy wielkość listy
+        return modelList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
-        private TextView title;
-        private TextView body;
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        ItemLayoutBinding itemLayoutBinding;
 
-            imageView = itemView.findViewById(R.id.image_view);
-            title = itemView.findViewById(R.id.title);
-            body = itemView.findViewById(R.id.body);
-        }
-
-        private void setData(int resource, String titleText, String bodyText) {
-            imageView.setImageResource(resource);
-            title.setText(titleText);
-            body.setText(bodyText);
+        ViewHolder(@NonNull ItemLayoutBinding itemView) {
+            super(itemView.getRoot());
+            itemLayoutBinding = itemView;
         }
     }
 }
+

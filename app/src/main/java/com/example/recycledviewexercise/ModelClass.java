@@ -1,25 +1,26 @@
 package com.example.recycledviewexercise;
 
-class ModelClass {
-    private int imageResource;
-    private String title;
-    private String body;
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
 
-    ModelClass(int imageResource, String title, String body) {
+import com.bumptech.glide.Glide;
+
+
+public class ModelClass {
+    public String imageResource;
+    public String title;
+    public String body;
+
+    ModelClass(String imageResource, String title, String body) {
         this.imageResource = imageResource;
         this.title = title;
         this.body = body;
     }
 
-    int getImageResource() {
-        return imageResource;
+    @BindingAdapter("imageUrl")
+    public static void loadImage(ImageView view, String imageUrl) {
+        Glide.with(view.getContext()).load(imageUrl).into(view);
     }
 
-    String getTitle() {
-        return title;
-    }
 
-    String getBody() {
-        return body;
-    }
 }
