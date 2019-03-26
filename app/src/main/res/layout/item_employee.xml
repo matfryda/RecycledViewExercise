@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="employee"
+            type="com.example.recycledviewexercise.Employee" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#3F6CA0"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{employee.name}"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/employee_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{`Employee id: ` + String.valueOf(employee.id)}"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{String.valueOf(employee.salary)}" />
+
+        <TextView
+            android:id="@+id/employee_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{String.valueOf(employee.age)}"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/employee_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{employee.image}"
+            android:textSize="15sp" />
+    </LinearLayout>
+</layout>

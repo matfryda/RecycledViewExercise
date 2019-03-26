@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">RecycledViewExercise</string>
-    <string name="test_app">Test App</string>
+    <string name="App_name">RecycledViewExercise</string>
+    <string name="Test_app">Test App</string>
+    <string name="employee_age">Employee age:</string>
+    <string name="employee_salary">Employee salary:</string>
+    <string name="employee_name">Employee name:</string>
+    <string name="relative_layout_employee_id">Employee id:</string>
+    <string name="employee_image">Employee image:</string>
 </resources>

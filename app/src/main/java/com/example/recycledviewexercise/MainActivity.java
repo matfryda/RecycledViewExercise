@@ -4,26 +4,31 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.recycledviewexercise.databinding.ActivityMainBinding;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.internal.EverythingIsNonNull;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
+
     ActivityMainBinding mBinding;
 
-
     public void setRecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view); //powiązujemy z id danym w pliku xml
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); //liniowy layout manager
 
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        recyclerView.setLayoutManager(layoutManager);
+        mBinding.recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -34,13 +39,35 @@ public class MainActivity extends AppCompatActivity {
         mBinding.recyclerView.setHasFixedSize(true);
         setRecyclerView();
 
-        List<ModelClass> modelClassList = new ArrayList<>();
-        modelClassList.add(new ModelClass("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Model---Sun---Gasometer---Oberhausen---%28Gentry%29.jpg/1200px-Model---Sun---Gasometer---Oberhausen---%28Gentry%29.jpg", "Sun", "Our star"));
-        modelClassList.add(new ModelClass("https://media.istockphoto.com/photos/solar-sysytem-planet-mercury-picture-id691444480?k=6&m=691444480&s=612x612&w=0&h=Tpqze-_FN7VIhbnSuik3UUPqYGa8z0ZQWgwkt0CVRuk=", "Marcury", "First planet from the Sun"));
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiInterface.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiInterface api = retrofit.create(ApiInterface.class);
 
-        Adapter adapter = new Adapter(modelClassList);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        Call<List<Employee>> call = api.getEmployees(); //za pomocą interface Call tworzymy listę obiektów
+
+        call.enqueue(new Callback<List<Employee>>() {
+
+            @Override
+            @EverythingIsNonNull
+            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+                if (response.isSuccessful()) {
+
+                    Adapter adapter = new Adapter(response.body());
+                    mBinding.recyclerView.setAdapter(adapter);
+                    assert response.body() != null;
+                    Log.d("response", response.body().toString());
+                }
+            }
+
+            @Override
+            @EverythingIsNonNull
+            public void onFailure(Call<List<Employee>> call, Throwable t) {
+                Log.d("response", t.getMessage());
+            }
+        });
+
     }
 }
