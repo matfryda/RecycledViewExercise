@@ -6,4 +6,5 @@
     <string name="employee_name">Employee name:</string>
     <string name="relative_layout_employee_id">Employee id:</string>
     <string name="employee_image">Employee image:</string>
+    <string name="back">Back</string>
 </resources>
