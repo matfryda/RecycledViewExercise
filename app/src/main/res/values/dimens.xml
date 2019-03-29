@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_main_text_size">40sp</dimen>
+    <dimen name="profile_activity_text_size">20sp</dimen>
+    <dimen name="profile_activity_image_height">70dp</dimen>
+    <dimen name="item_employee_margin">8dp</dimen>
+    <dimen name="item_layout_image_width">150dp</dimen>
+    <dimen name="item_layout_image_margin">16dp</dimen>
+    <dimen name="relative_employees_layout_height">150dp</dimen>
+    <dimen name="relative_employees_layout_margin_bottom">15dp</dimen>
+    <dimen name="relative_employees_layout_text_size">20sp</dimen>
+    <dimen name="relative_linear_employees_text_size">20sp</dimen>
+    <dimen name="relative_under_16_text_size">20sp</dimen>
+    <dimen name="linear_under_16_height">150sp</dimen>
+    <dimen name="relative_under_16_margin_bottom">20dp</dimen>
+    <dimen name="relative_under_16_textView_margin_left">10dp</dimen>
+    <dimen name="relative_under_16_textView_margin_start">10dp</dimen>
+
+</resources>

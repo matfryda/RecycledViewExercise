@@ -8,8 +8,7 @@
             type="com.example.recycledviewexercise.ModelClass" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -20,14 +19,14 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="150dp"
+            android:layout_width="@dimen/item_layout_image_width"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="@dimen/item_layout_image_margin"
+            android:layout_marginLeft="@dimen/item_layout_image_margin"
             app:imageUrl="@{image.imageResource}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat='@mipmap/ic_launcher_round' />
+            app:srcCompat='@mipmap/ic_launcher_round'/>
 
         <TextView
             android:id="@+id/title"
@@ -50,13 +49,13 @@
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingStart="20sp"
             android:paddingLeft="20sp"
             android:text="@{image.body}"
             android:textColor="#000"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:paddingStart="20sp"
             tools:ignore="RtlSymmetry" />
 
 
