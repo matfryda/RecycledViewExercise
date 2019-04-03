@@ -22,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding mBinding;
 
+
+    ApiInterface api;
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(ApiInterface.URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    // Metoda z wyswietlania listy employees.
     public void onResponseOK(Call<List<Employee>> call, Response<List<Employee>> response) {
         if (response.isSuccessful()) {
             Adapter adapter = new Adapter(response.body());
@@ -32,6 +40,33 @@ public class MainActivity extends AppCompatActivity {
         mBinding.progressbar.setVisibility(View.GONE);
     }
 
+
+
+
+    public void viewEmployees() {
+
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        mBinding.progressbar.setVisibility(View.VISIBLE);
+
+        Call<List<Employee>> call = api.getEmployees(); //za pomocą interface Call tworzymy listę obiektów
+
+
+        call.enqueue(new Callback<List<Employee>>() {
+            @Override
+            @EverythingIsNonNull
+            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+                onResponseOK(call, response);
+            }
+
+            @Override
+            @EverythingIsNonNull
+            public void onFailure(Call<List<Employee>> call, Throwable t) {
+                mBinding.progressbar.setVisibility(View.GONE);
+                Log.d("response", t.getMessage());
+            }
+        });
+    }
 
     public void setRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); //liniowy layout manager
@@ -47,40 +82,9 @@ public class MainActivity extends AppCompatActivity {
         mBinding.recyclerView.setHasFixedSize(true);
 
         setRecyclerView();
+        viewEmployees();
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiInterface.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface api = retrofit.create(ApiInterface.class);
-
-        mBinding.progressbar.setVisibility(View.VISIBLE);
-
-        Call<List<Employee>> call = api.getEmployees(); //za pomocą interface Call tworzymy listę obiektów
-
-
-        call.enqueue(new Callback<List<Employee>>() {
-            @Override
-            @EverythingIsNonNull
-            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                if (response.isSuccessful()) {
-                    Adapter adapter = new Adapter(response.body());
-                    mBinding.recyclerView.setAdapter(adapter);
-                    assert response.body() != null;
-                    Log.d("response", response.body().toString());
-                }
-                mBinding.progressbar.setVisibility(View.GONE);
-            }
-
-            @Override
-            @EverythingIsNonNull
-            public void onFailure(Call<List<Employee>> call, Throwable t) {
-                mBinding.progressbar.setVisibility(View.GONE);
-                Log.d("response", t.getMessage());
-            }
-        });
     }
+
 
 }

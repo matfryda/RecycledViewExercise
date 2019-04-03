@@ -53,7 +53,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.BaseViewHolder> {
         viewHolder.binding.setVariable(BR.employee, employee);                              //binduje trzymacz widoku z lista, BR - binding resources. Pozwala odniesc sie do employee
         viewHolder.itemView.setOnClickListener(v -> {                                       //na klikniecie na element ma sie zadziac ten clickOnListener
             Log.d(TAG, "onClick: ");
-            Toast.makeText(v.getContext(), employee.name, Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), "Actual salary " + String.valueOf(employee.salary), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(v.getContext(), ProfileActivity.class);
             intent.putExtra("id", employee.id);
             v.getContext().startActivity(intent);

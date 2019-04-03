@@ -8,4 +8,10 @@
     <string name="employee_image">Employee image:</string>
     <string name="Back">Back</string>
     <string name="todo">TODO</string>
+    <string name="update">Update</string>
+    <string name="confirm">Confirm</string>
+    <string name="complete_the_data">Complete the data:</string>
+    <string name="name">Name</string>
+    <string name="salary">Salary</string>
+    <string name="age">Age</string>
 </resources>

@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
-import com.example.recycledviewexercise.databinding.ActivityMainBinding;
 import com.example.recycledviewexercise.databinding.ActivityProfileBinding;
 
 import retrofit2.Call;
@@ -19,30 +16,47 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileActivity extends AppCompatActivity {
+    ApiInterface api;
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(ApiInterface.URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     ActivityProfileBinding profileBinding;
-    ActivityMainBinding mainBinding;
-    ProgressBar mProgressBar;
 
+    //---------------------------------TU JEST METODA ONCREATE() -----------------------------------
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        api = retrofit.create(ApiInterface.class);
         profileBinding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
-        mProgressBar = findViewById(R.id.progressbar);
 
+        //Przycisk powrotu do glownego ekranu, JEST OK
         profileBinding.buttonBack.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
             v.getContext().startActivity(intent);
         });
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiInterface.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        ApiInterface api = retrofit.create(ApiInterface.class);
+        // Przycisk do aktualizowania danych z api, NIE JEST OK
+        profileBinding.buttonUpdate.setOnClickListener(v -> {
+          //pobieram aktualne id pracownika
+            int id = getIntent().getIntExtra("id", 1);
+          //uzywam tego id na metodzie do updatowania danych w api
+          updateEmployee(id);
+            Intent intent = new Intent(this, UpdateActivity.class);
+            intent.putExtra("id", id);
+            v.getContext().startActivity(intent);
+            //przechodzimy do nowego activity do edytowania danych z API
+        });
 
+        getEmployee();
+    }
+//-----------------------------------TU SIE KONCZY--------------------------------------------------
+
+
+    private void getEmployee() {
         Call<Employee> call;
-        call = api.getEmployee(getIntent().getIntExtra("id", 666));
+        call = api.getEmployee(getIntent().getIntExtra("id", 666)); //tu jakie ma aktualne id
         call.enqueue(new Callback<Employee>() {
             @Override
             public void onResponse(Call<Employee> call, Response<Employee> response) {
@@ -57,4 +71,37 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    //---------------------TU JEST METODA UPDATUJACA DANE W API-------------------------------------
+    //uaktualnianie danych employee
+    void updateEmployee(int id) {
+//jest uzyta @Data mimo to krzyczy, ze nie ma konstruktora badziew???????
+        UpdateEmployee updateEmployee = new UpdateEmployee(id, " rysiek ", 500, 37);
+        //stworzonego pracownika umieszczam o tu za pomocą zdefiniowanej w interfejsie metody putEmployee
+        Call<Employee> call = api.putEmployee(id, updateEmployee);
+
+        //Enqueque, czyli zapytanie asynchroniczne
+        call.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                onResponseEmployeeOK(call, response);
+            }
+
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+                Log.d("response", t.getMessage());
+            }
+        });
+    }
+//------------------------------------TU SIE KONCZY-------------------------------------------------
+
+
+    public void onResponseEmployeeOK(Call<Employee> call, Response<Employee> response) {
+        if (response.isSuccessful()) {
+            assert response.body() != null;
+            Log.d("response", response.body().toString());
+        }
+    }
+
+
 }

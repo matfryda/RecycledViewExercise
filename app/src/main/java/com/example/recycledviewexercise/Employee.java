@@ -4,10 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public
 class Employee {
 
@@ -17,7 +19,7 @@ class Employee {
     @SerializedName("employee_name")
     public String name;
 
-    @SerializedName("salary")
+    @SerializedName("employee_salary")
     public double salary;
 
     @SerializedName("employee_age")
@@ -25,6 +27,5 @@ class Employee {
 
     @SerializedName("profile_image")
     public String image;
-
 
 }
