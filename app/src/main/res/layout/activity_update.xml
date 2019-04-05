@@ -60,11 +60,20 @@
             android:text="@string/confirm" />
 
         <Button
-            android:id="@+id/buttonBackToProfile"
+            android:id="@+id/buttonDelete"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:text="@string/delete" />
+
+        <Button
+            android:id="@+id/button_back_to_the_profile"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
             android:text="@string/Back" />
+
     </LinearLayout>
 </layout>

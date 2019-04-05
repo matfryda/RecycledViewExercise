@@ -24,29 +24,25 @@ public class ProfileActivity extends AppCompatActivity {
 
     ActivityProfileBinding profileBinding;
 
-    //---------------------------------TU JEST METODA ONCREATE() -----------------------------------
+    //---------------------------------TU JEST METODA ONCREATE() ---------------------------------//
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         api = retrofit.create(ApiInterface.class);
         profileBinding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
 
-        //Przycisk powrotu do glownego ekranu, JEST OK
         profileBinding.buttonBack.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
             v.getContext().startActivity(intent);
         });
 
-        // Przycisk do aktualizowania danych z api, NIE JEST OK
         profileBinding.buttonUpdate.setOnClickListener(v -> {
-          //pobieram aktualne id pracownika
+            //pobieram aktualne id pracownika
             int id = getIntent().getIntExtra("id", 1);
-          //uzywam tego id na metodzie do updatowania danych w api
-          updateEmployee(id);
+            //uzywam tego id na metodzie do updatowania danych w api
             Intent intent = new Intent(this, UpdateActivity.class);
             intent.putExtra("id", id);
             v.getContext().startActivity(intent);
-            //przechodzimy do nowego activity do edytowania danych z API
         });
 
         getEmployee();
@@ -71,37 +67,4 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-    //---------------------TU JEST METODA UPDATUJACA DANE W API-------------------------------------
-    //uaktualnianie danych employee
-    void updateEmployee(int id) {
-//jest uzyta @Data mimo to krzyczy, ze nie ma konstruktora badziew???????
-        UpdateEmployee updateEmployee = new UpdateEmployee(id, " rysiek ", 500, 37);
-        //stworzonego pracownika umieszczam o tu za pomocą zdefiniowanej w interfejsie metody putEmployee
-        Call<Employee> call = api.putEmployee(id, updateEmployee);
-
-        //Enqueque, czyli zapytanie asynchroniczne
-        call.enqueue(new Callback<Employee>() {
-            @Override
-            public void onResponse(Call<Employee> call, Response<Employee> response) {
-                onResponseEmployeeOK(call, response);
-            }
-
-            @Override
-            public void onFailure(Call<Employee> call, Throwable t) {
-                Log.d("response", t.getMessage());
-            }
-        });
-    }
-//------------------------------------TU SIE KONCZY-------------------------------------------------
-
-
-    public void onResponseEmployeeOK(Call<Employee> call, Response<Employee> response) {
-        if (response.isSuccessful()) {
-            assert response.body() != null;
-            Log.d("response", response.body().toString());
-        }
-    }
-
-
 }

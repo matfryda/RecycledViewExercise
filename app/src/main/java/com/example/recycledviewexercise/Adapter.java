@@ -1,6 +1,5 @@
 package com.example.recycledviewexercise;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
@@ -9,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 
 import java.util.List;
 
@@ -21,7 +18,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.BaseViewHolder> {
 
 
     private List<Employee> employeeList;
-    public Employee employee;
+    private OnClickItemListener onClickItemListener;
+
+    void setOnClickItemListener(OnClickItemListener onClickItemListener) {
+        this.onClickItemListener = onClickItemListener;
+    }
 
     Adapter(List<Employee> employeeList) {
         this.employeeList = employeeList;
@@ -47,20 +48,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder viewHolder, final int position) { //powiązujemy View Holder
-
         Employee employee = employeeList.get(position);                                     //tworze liste, bedzie na nia wpisywalo z api
-
         viewHolder.binding.setVariable(BR.employee, employee);                              //binduje trzymacz widoku z lista, BR - binding resources. Pozwala odniesc sie do employee
         viewHolder.itemView.setOnClickListener(v -> {                                       //na klikniecie na element ma sie zadziac ten clickOnListener
-            Log.d(TAG, "onClick: ");
-            Toast.makeText(v.getContext(), "Actual salary " + String.valueOf(employee.salary), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(v.getContext(), ProfileActivity.class);
-            intent.putExtra("id", employee.id);
-            v.getContext().startActivity(intent);
-
+            onClickItemListener.onClick(v, employee);
         });
-
-
         Log.d(TAG, "onBindViewHolder: called.");
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
@@ -22,8 +23,8 @@ public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @PUT("api/v1/update/{id}")
-    Call<Employee> putEmployee(@Path("id") int id, @Body UpdateEmployee updateEmployee);
+    Call<UpdateEmployee> putEmployee(@Path("id") int id, @Body UpdateEmployee updateEmployee);
 
-    @PATCH("api/v1/update/{id}")
-    Call<Employee> patchEmployee(@Path("id") int id, @Body Employee employee);
+    @DELETE("api/v1/delete/{id}")
+    Call<Void> deleteTheEmployee(@Path("id") int id);
 }
