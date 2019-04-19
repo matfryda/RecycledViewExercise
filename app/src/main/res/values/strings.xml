@@ -1,5 +1,5 @@
 <resources>
-    <string name="App_name">RecycledViewExercise</string>
+    <string name="App_name">Recycled view exercise</string>
     <string name="Test_app">Test App</string>
     <string name="employee_age">Employee age:</string>
     <string name="employee_salary">Employee salary:</string>

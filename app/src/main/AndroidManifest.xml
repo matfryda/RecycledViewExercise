@@ -15,9 +15,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".UpdateActivity"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".UpdateActivity" android:parentActivityName=".views.profile.ProfileActivity"></activity>
+        <activity android:name=".views.profile.ProfileActivity" android:parentActivityName=".views.main.MainActivity" />
+        <activity android:name=".views.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

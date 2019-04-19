@@ -1,13 +1,19 @@
-package com.example.recycledviewexercise;
+package com.example.recycledviewexercise.views.profile;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.recycledviewexercise.ApiInterface;
+import com.example.recycledviewexercise.Employee;
+import com.example.recycledviewexercise.R;
+import com.example.recycledviewexercise.UpdateActivity;
 import com.example.recycledviewexercise.databinding.ActivityProfileBinding;
+import com.example.recycledviewexercise.views.main.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,14 +21,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements ProfileContract.View {
     ApiInterface api;
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ApiInterface.URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    ProfileContract.Presenter presenter;
+
     ActivityProfileBinding profileBinding;
+    ActionBar actionBar = getSupportActionBar();
 
     //---------------------------------TU JEST METODA ONCREATE() ---------------------------------//
     @Override
@@ -31,26 +40,31 @@ public class ProfileActivity extends AppCompatActivity {
         api = retrofit.create(ApiInterface.class);
         profileBinding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
 
-        profileBinding.buttonBack.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-            v.getContext().startActivity(intent);
-        });
+        backToTheListOfEmployees();
 
+        goToEditEmployee();
+
+        getEmployee();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void goToEditEmployee() {
         profileBinding.buttonUpdate.setOnClickListener(v -> {
-            //pobieram aktualne id pracownika
             int id = getIntent().getIntExtra("id", 1);
-            //uzywam tego id na metodzie do updatowania danych w api
             Intent intent = new Intent(this, UpdateActivity.class);
             intent.putExtra("id", id);
             v.getContext().startActivity(intent);
         });
-
-        getEmployee();
     }
-//-----------------------------------TU SIE KONCZY--------------------------------------------------
 
+    private void backToTheListOfEmployees() {
+        profileBinding.buttonBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+            v.getContext().startActivity(intent);
+        });
+    }
 
-    private void getEmployee() {
+    void getEmployee() {
         Call<Employee> call;
         call = api.getEmployee(getIntent().getIntExtra("id", 666)); //tu jakie ma aktualne id
         call.enqueue(new Callback<Employee>() {
@@ -67,4 +81,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
 }
+

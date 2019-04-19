@@ -9,30 +9,42 @@
             type="com.example.recycledviewexercise.Employee" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/relative_employees_layout_height"
-        android:layout_marginBottom="@dimen/relative_employees_layout_margin_bottom"
-        android:background="@color/primaryDarkColor">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/shadow"
+        android:elevation="15dp"
+        tools:targetApi="lollipop">
 
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="@{String.valueOf(employee.id)}"
-            android:textSize="@dimen/relative_employees_layout_text_size" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/primaryDarkColor"
+            android:paddingBottom="15sp">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="@{employee.name}"
-            android:textSize="@dimen/relative_employees_layout_text_size"
-            tools:ignore="RelativeOverlap" />
-    </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:text="@{String.valueOf(employee.id)}"
+                android:textSize="@dimen/relative_employees_layout_text_size" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@{employee.name}"
+                android:textSize="@dimen/relative_employees_layout_text_size"
+                tools:ignore="MissingConstraints" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
 </layout>

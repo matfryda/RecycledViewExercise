@@ -10,9 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item_employee_margin"
-        android:layout_marginBottom="@dimen/item_employee_margin"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
         android:background="#3F6CA0"
         android:orientation="vertical">
 

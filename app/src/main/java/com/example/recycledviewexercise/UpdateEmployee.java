@@ -2,8 +2,8 @@ package com.example.recycledviewexercise;
 
 import com.google.gson.annotations.SerializedName;
 
-class UpdateEmployee {
-    UpdateEmployee(int id, String name, double salary, int age) {
+public class UpdateEmployee {
+    public UpdateEmployee(int id, String name, double salary, int age) {
         this.id = id;
         this.name = name;
         this.salary = salary;

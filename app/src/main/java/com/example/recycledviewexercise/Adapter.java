@@ -20,11 +20,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.BaseViewHolder> {
     private List<Employee> employeeList;
     private OnClickItemListener onClickItemListener;
 
-    void setOnClickItemListener(OnClickItemListener onClickItemListener) {
+
+    public void setOnClickItemListener(OnClickItemListener onClickItemListener) {
         this.onClickItemListener = onClickItemListener;
     }
 
-    Adapter(List<Employee> employeeList) {
+    public Adapter(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
 
@@ -33,8 +34,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.BaseViewHolder> {
         if (position < 16) {
             return R.layout.relative_under_16;
         } else if (position < 20) {
-            return R.layout.relative_linear_employees;
-        } else return R.layout.relative_employees_layout;
+            return R.layout.relative_employees_layout;
+        }
+        else return R.layout.linear_employees_layout;
     }
 
 

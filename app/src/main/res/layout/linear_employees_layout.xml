@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-
+        app:cardCornerRadius="15dp"
         app:cardElevation="16dp"
         app:cardMaxElevation="16dp"
         android:layout_width="match_parent"
@@ -21,40 +21,36 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/linear_under_16_height"
-            android:layout_marginBottom="@dimen/relative_under_16_margin_bottom"
+            android:layout_height="150sp"
             android:background="@color/primaryDarkColor"
-            android:orientation="horizontal">
+            android:paddingBottom="15sp">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:text="@{`Employee id: ` + employee.id}"
-                android:textSize="@dimen/relative_under_16_text_size" />
+                android:text="@{String.valueOf(employee.id) }"
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="false"
-                android:layout_marginStart="@dimen/relative_under_16_textView_margin_left"
-                android:layout_marginLeft="@dimen/relative_under_16_textView_margin_start"
-                android:layout_toEndOf="@+id/textView2"
-                android:layout_toRightOf="@+id/textView2"
-                android:text="@{`Employee name: ` + employee.name}"
-                android:textSize="@dimen/relative_under_16_text_size" />
+                android:layout_toEndOf="@+id/textId"
+                android:layout_toRightOf="@+id/textId"
+                android:text="@{employee.name}"
+                android:textSize="@dimen/relative_linear_employees_text_size" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textSalary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="@{`Employee age: ` + employee.salary}"
-                android:textSize="@dimen/relative_under_16_text_size" />
+                android:layout_toEndOf="@+id/textName"
+                android:layout_toRightOf="@+id/textName"
+                android:text="@{employee.name}"
+                android:textSize="@dimen/relative_linear_employees_text_size" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
