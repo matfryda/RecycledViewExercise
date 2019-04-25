@@ -1,9 +1,11 @@
 package com.example.recycledviewexercise.views.profile;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.recycledviewexercise.ApiInterface;
 import com.example.recycledviewexercise.Employee;
+import com.example.recycledviewexercise.views.main.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,22 +24,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void getEmployee() {
     }
-//        ApiInterface api = api = retrofit.create(ApiInterface.class);
-//        ;
-//        Call<Employee> call;
-//        call = api.getEmployee(getIntent().getIntExtra("id", 666)); //tu jakie ma aktualne id
-//        call.enqueue(new Callback<Employee>() {
-//            @Override
-//            public void onResponse(Call<Employee> call, Response<Employee> response) {
-//                if (response.isSuccessful()) {
-//                    view.getEmployee();
-//                    profileBinding.setEmployee(response.body());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Employee> call, Throwable t) {
-//                Log.d("response", t.getMessage());
-//            }
-//        });
+
+    @Override
+    public void create() {
+        view.backToTheListOfEmployees();
+        view.goToEditEmployee();
+        getEmployee();
+    }
+
+
 }

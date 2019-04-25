@@ -7,4 +7,7 @@
     <color name="primaryDarkColor">#00251A</color>
 
     <color name="primaryTextColor">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="product_list_item_bg">#ffffff</color>
+    <color name="view_divider_color">#BABABA</color>
 </resources>

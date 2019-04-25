@@ -31,12 +31,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position < 16) {
-            return R.layout.relative_under_16;
-        } else if (position < 20) {
-            return R.layout.relative_employees_layout;
-        }
-        else return R.layout.linear_employees_layout;
+        return R.layout.relative_under_16;
     }
 
 

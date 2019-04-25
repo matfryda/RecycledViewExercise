@@ -194,7 +194,6 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
 //                textViewResult.setText("Code " + response.code());
-
             }
 
             @Override
