@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +19,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
-    private Toolbar mTopToolbar;
     ActivityMainBinding mBinding;
     MainContract.Presenter presenter = new MainPresenter(this);
     boolean doubleBackToExitPressedOnce = false;
@@ -36,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new MainPresenter(this);
         utils = getSharedPreferences("favorite", MainActivity.MODE_PRIVATE);
-//        setSupportActionBar(mTopToolbar);
         presenter.onCreate();
     }
 
@@ -74,43 +69,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             super.onBackPressed();
             return;
         }
-
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.favourite_button) {
-            Toast.makeText(MainActivity.this, "Favourite action clicked", Toast.LENGTH_LONG).show();
-            saveData();
-            return true;
-        }
-        loadData();
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void loadData() {
-        String loadFromPref = utils.getString("favorite", "");
-    }
-
-    private void saveData() {
-        SharedPreferences.Editor editor = utils.edit();
-        editor.commit();
-    }
 }

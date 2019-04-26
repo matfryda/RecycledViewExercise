@@ -1,7 +1,6 @@
 package com.example.recycledviewexercise.views.main;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -51,10 +50,10 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onCreate() {
         view.setRecyclerView();
-        getEmployers();
+        getEmployees();
     }
 
-    private void getEmployers() {
+    private void getEmployees() {
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<List<Employee>> call = api.getEmployees(); //za pomocą interface Call tworzymy listę obiektów
         call.enqueue(new Callback<List<Employee>>() {

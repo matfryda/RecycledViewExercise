@@ -10,16 +10,6 @@
         android:padding="16dp"
         tools:context=".views.main.MainActivity">
 
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/my_toolbar"-->
-            <!--style="@style/HeaderBar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:elevation="4dp"-->
-            <!--app:popupTheme="@style/AppTheme"-->
-            <!--app:theme="@style/AppTheme" />-->
-
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
