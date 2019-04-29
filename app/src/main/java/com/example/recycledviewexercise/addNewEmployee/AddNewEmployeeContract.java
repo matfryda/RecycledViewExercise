@@ -1,12 +1,21 @@
 package com.example.recycledviewexercise.addNewEmployee;
 
 public interface AddNewEmployeeContract {
-    public interface View {
+    interface View {
+        void backToMainActivity();
 
+        void init();
+
+        void completeData();
     }
 
-    public interface Presenter {
+    interface Presenter {
+
         void createAPIEmployee(String name, double salary, int age);
+
+        void create();
+
+        void addNewEmployee();
     }
 
 
