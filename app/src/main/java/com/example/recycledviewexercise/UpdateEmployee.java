@@ -10,6 +10,12 @@ public class UpdateEmployee {
         this.age = age;
     }
 
+    public UpdateEmployee(String name, double salary, int age) {
+        this.name = name;
+        this.salary = salary;
+        this.age = age;
+    }
+
     @SerializedName("id")
     public int id;
 

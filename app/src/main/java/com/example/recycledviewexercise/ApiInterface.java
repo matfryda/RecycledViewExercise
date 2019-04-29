@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
@@ -25,5 +26,8 @@ public interface ApiInterface {
     Call<UpdateEmployee> putEmployee(@Path("id") int id, @Body UpdateEmployee updateEmployee);
 
     @DELETE("api/v1/delete/{id}")
-    Call<Void> deleteTheEmployee(@Path("id") int id);
+    Call<Void> deleteEmployee(@Path("id") int id);
+
+    @POST("api/v1/create")
+    Call<UpdateEmployee> addEmployee(@Body UpdateEmployee updateEmployee);
 }

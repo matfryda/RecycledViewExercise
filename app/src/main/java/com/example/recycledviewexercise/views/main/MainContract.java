@@ -14,9 +14,11 @@ public interface MainContract {
 
         void showEmployees(List<Employee> employees);
 
-    }
+        void addEmployee();
 
+    }
     interface Presenter {
+
 
         void onEmployeeClick(Adapter adapter);
 

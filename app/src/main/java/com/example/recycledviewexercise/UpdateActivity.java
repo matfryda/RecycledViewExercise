@@ -42,7 +42,7 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void updateEmployeeButton() {
-        activityUpdateBinding.buttonConfirm.setOnClickListener(this::dialogUpdateEmployeeConfirm);
+        activityUpdateBinding.buttonConfirm.setOnClickListener(v -> dialogUpdateEmployeeConfirm(v));
     }
 
     private void deleteEmployeeButton() {
@@ -188,7 +188,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     public void deleteEmployee(int id) {
 
-        Call<Void> call = api.deleteTheEmployee(id);
+        Call<Void> call = api.deleteEmployee(id);
 
         call.enqueue(new Callback<Void>() {
             @Override

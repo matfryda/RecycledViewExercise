@@ -1,6 +1,6 @@
 package com.example.recycledviewexercise.views.main;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.recycledviewexercise.Adapter;
+import com.example.recycledviewexercise.addNewEmployee.AddEmployeeActivity;
 import com.example.recycledviewexercise.Employee;
 import com.example.recycledviewexercise.R;
 import com.example.recycledviewexercise.databinding.ActivityMainBinding;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     ActivityMainBinding mBinding;
     MainContract.Presenter presenter = new MainPresenter(this);
     boolean doubleBackToExitPressedOnce = false;
-    SharedPreferences utils;
 
 //-----------------------------METODA GLOWNA ONCREATE()---------------------------------------------
 
@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new MainPresenter(this);
-        utils = getSharedPreferences("favorite", MainActivity.MODE_PRIVATE);
         presenter.onCreate();
     }
 
@@ -74,4 +73,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 
+    @Override
+    public void addEmployee() {
+        mBinding.addButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddEmployeeActivity.class);
+            v.getContext().startActivity(intent);
+        });
+    }
 }

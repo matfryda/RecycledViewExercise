@@ -21,11 +21,9 @@ import retrofit2.internal.EverythingIsNonNull;
 import static android.support.constraint.Constraints.TAG;
 
 public class MainPresenter implements MainContract.Presenter {
-    //pobieranie danych w prezenterze
-
 
     private MainContract.View view;
-    Retrofit retrofit = new Retrofit.Builder()
+    private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ApiInterface.URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -49,9 +47,12 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onCreate() {
+        view.showProgressBar(true);
         view.setRecyclerView();
         getEmployees();
+        view.addEmployee();
     }
+
 
     private void getEmployees() {
         ApiInterface api = retrofit.create(ApiInterface.class);
@@ -60,7 +61,7 @@ public class MainPresenter implements MainContract.Presenter {
             @Override
             @EverythingIsNonNull
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Employee> employees = response.body();
                     view.showEmployees(employees);
                 }
